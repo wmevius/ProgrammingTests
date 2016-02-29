@@ -85,19 +85,6 @@ namespace ProgrammingTests
         /// <param name="sentance"></param>
         public static string ReverseWords(string sentance)
         {
-            string revrsed = "";
-
-            if (string.IsNullOrEmpty(sentance))
-            {
-                return "";
-            }
-            string[] sArray = sentance.Split(' ');
-
-            for (int i = sArray.Length - 1; i < -1; i--)
-            {
-                revrsed += sArray[i];
-            }
-            return revrsed; 
             /*
                 write a function to reverse the words in a string
              * 
@@ -105,6 +92,7 @@ namespace ProgrammingTests
              * 
              * Bonus Points if you can make this function into an Extension Method
              */
+            return String.Empty;
         }
     }
 }
