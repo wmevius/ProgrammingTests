@@ -86,11 +86,12 @@ namespace ProgrammingTests
         public static string ReverseWords(string sentance)
         {
             /*
-                write a function to reverse the words in a string
+             * write a function to reverse the words in a string which 
+             * does not use a framework reverse method
              * 
              * should test for nulls, empty string etc
              * 
-             * Bonus Points if you can make this function into an Extension Method
+             * Bonus Points if you can write this as an Extension Method
              */
             return String.Empty;
         }
