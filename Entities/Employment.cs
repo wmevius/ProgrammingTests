@@ -16,7 +16,13 @@ namespace Entities
         /// <returns></returns>
         public double NumberOfYearsEmployed
         {
-            get { return 0; }
+            get
+            {
+                double numberOfDays = this.EmploymentEndDate == null ? (DateTime.Now - EmployementStartDate).TotalDays : (((DateTime)EmploymentEndDate) - EmployementStartDate).TotalDays;
+
+                // calculate the number of years as a double, including fractional part
+                return numberOfDays / 365;
+            }
         }
     }
 }
