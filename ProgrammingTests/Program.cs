@@ -2,6 +2,8 @@
 using System.Linq;
 using Data;
 using Data.Interfaces;
+using Entities;
+using System.Collections.Generic;
 
 namespace ProgrammingTests
 {
@@ -44,6 +46,15 @@ namespace ProgrammingTests
 
         public static void TestLinqQueries()
         {
+            List<Company> allCompanies = _testRepository.FindAllCompanies();
+            int countOfAllCompanies = allCompanies.Count();
+
+            foreach (var employment in allCompanies.Where(c => c.Name=="Irish1").SelectMany(e => e.Employments))
+            {
+                Console.WriteLine(employment.Employee.Name);
+            }
+
+            double totalNumberOfyears = allCompanies.SelectMany(e => e.Employments).Select(y => y.NumberOfYearsEmployed).Sum(num => num);
         }
 
         public static void TestAlgorithms()
@@ -51,13 +62,14 @@ namespace ProgrammingTests
             FizzBuzz();
             Console.ReadLine();
 
-            ReverseWords("This is a programming test");
+            Console.WriteLine("This is a programming test".ReverseWords());
             Console.ReadLine();
 
-            ReverseWords("");
+            Console.WriteLine("".ReverseWords());
             Console.ReadLine();
 
-            ReverseWords(null);
+            string x = null;
+            Console.WriteLine(x.ReverseWords());
             Console.ReadLine();
 
         }
@@ -78,12 +90,38 @@ namespace ProgrammingTests
              * else print the number
              * 
              */
+             for (int i=1;i<101;i++)
+            {
+                bool printing = false;
+                if (i % 3 == 0)
+                {
+                    Console.Write("Fizz");
+                    printing = true;
+                }
+                if (i % 5 == 0)
+                {
+                    Console.Write("Buzz");
+                    printing = true;
+                }
+                if (!printing)
+                {
+                    Console.Write(i.ToString());
+                }
+                Console.WriteLine();
+                
+            }
         }
+
+ 
+
+    }
+    public static class ExtensionMethods
+    {
 
         /// <summary>
         /// </summary>
-        /// <param name="sentance"></param>
-        public static string ReverseWords(string sentance)
+        /// <param name="sentence"></param>
+        public static string ReverseWords(this string sentence)
         {
             /*
              * write a function to reverse the words in a string which 
@@ -93,7 +131,39 @@ namespace ProgrammingTests
              * 
              * Bonus Points if you can write this as an Extension Method
              */
-            return String.Empty;
+            if (String.IsNullOrWhiteSpace(sentence))
+            {
+                return sentence;
+            }
+
+
+            return reverse("", "", sentence);
+
+        }
+
+        /// <summary>
+        /// reverses each word in a sentence recursively
+        /// </summary>
+        /// <param name="reversed">the reversed string so far</param>
+        /// <param name="temp">a temporary string for reversing each word</param>
+        /// <param name="rest">the remainder of the string to be reversed</param>
+        /// <returns></returns>
+        private static string reverse(string reversed, string temp, string rest)
+        {
+            char[] separators = new char[] { ' ', '.', ';', ',' };
+
+            if (String.IsNullOrEmpty(rest))
+            {
+                return reversed + temp;
+            }
+            if (separators.Contains(rest[0]))
+            {
+                return reverse(reversed + temp + rest[0], "", rest.Substring(1));
+            }
+            else
+            {
+                return reverse(reversed, rest[0] + temp, rest.Substring(1));
+            }
         }
     }
 }
